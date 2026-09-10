@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ESPER // Model 99 Forensic Photo Analysis Workstation</title>
+  <link rel="stylesheet" href="/src/style.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Share+Tech+Mono&family=VT323&display=swap" rel="stylesheet">
+</head>
+<body>
+  <!-- 3D Three.js Main Canvas Container -->
+  <div id="app"></div>
+
+  <!-- CRT HUD & Coordinate Overlay -->
+  <div id="crt-overlay-container" class="crt-overlay-container"></div>
+
+  <!-- Top System Bar -->
+  <header class="esper-top-bar" id="view-toggle-bar">
+    <div class="top-bar-left">
+      <div class="lapd-badge">
+        <span class="badge-title">LAPD FORENSIC</span>
+        <span class="badge-sub">ESPER 99 // DIVISION 4</span>
+      </div>
+      <button id="btn-toggle-view" class="top-nav-btn">VIEW: CONSOLE DESK</button>
+      <button id="btn-show-help" class="top-nav-btn help-btn">OPERATOR MANUAL [?]</button>
+    </div>
+    <div class="top-bar-right">
+      <div class="system-clock" id="system-clock">2026.09.09 // 17:55:00 PST</div>
+      <div class="indicator-led online"></div>
+    </div>
+  </header>
+
+  <!-- Help & Protocol Modal -->
+  <div class="help-modal-backdrop" id="help-modal">
+    <div class="help-modal-card">
+      <div class="help-modal-header">
+        <h2>ESPER PHOTO INSPECTOR // OPERATIONAL PROTOCOL</h2>
+        <button id="btn-close-help" class="help-close-btn">&times;</button>
+      </div>
+      <div class="help-modal-body">
+        <section class="help-section">
+          <h3>1. FORENSIC 3D CRIME SCENE RECONSTRUCTION</h3>
+          <p>
+            The ESPER functions as an invisible <b>"drone"</b> flying through a high-fidelity 3D forensic capture of Leon Kowalski's 10' x 14' changing room (dresser, chair, closet, and wall mirror). Detail can be inspected unchanged from the moment of events. Look into the <b>convex mirror</b> on the north wall to reveal occluded angles and hidden reflections.
+          </p>
+        </section>
+
+        <section class="help-section">
+          <h3>2. TANGIBLE WEBCAM OBJECT CONTROL ("WHISKEY GLASS" TUI)</h3>
+          <p>
+            Inspired by Deckard using his drink on the couch arm as a controller: Enable the optical sensor, click on any physical object in your webcam feed (a glass, cup, or pen), and move it against your desk. The drone translates horizontally/vertically and flies forward/backward as the object shifts.
+          </p>
+        </section>
+
+        <section class="help-section">
+          <h3>3. ANALOGUE VU METER</h3>
+          <p>
+            Located on the upper left of the console, this physical needle meter reacts dynamically to room audio and Deckard's voice via your microphone, simulated with genuine ballistic meter damping and decibel readouts.
+          </p>
+        </section>
+
+        <section class="help-section">
+          <h3>4. DUAL "UNICORN" JOYSTICK DIALS</h3>
+          <p>
+            On the right panel, two rotary joysticks emblazoned with the origami unicorn allow manual coordinate manipulation:
+            <br>• <b>Dial I</b>: East-West / North-South coordinate translation.
+            <br>• <b>Dial II</b>: Camera Yaw rotation and optical Zoom level.
+          </p>
+        </section>
+
+        <section class="help-section">
+          <h3>5. CANONICAL VOICE COMMANDS</h3>
+          <p>
+            Speak clearly into your microphone:
+            <br>• <code>"Enhance"</code> / <code>"Zoom in"</code> / <code>"Enhance 224 to 176"</code>
+            <br>• <code>"Track right"</code> / <code>"Track left"</code> / <code>"Move in"</code> / <code>"Pull back"</code>
+            <br>• <code>"Center in"</code> / <code>"Stop"</code>
+            <br>• <code>"Give me a hard copy right there"</code> / <code>"Hard copy"</code>
+          </p>
+        </section>
+
+        <section class="help-section">
+          <h3>6. CHEMICAL HARDCOPY & FORENSIC WATERMARK</h3>
+          <p>
+            Press the <b>yellow button</b> ("HARDCOPY / SEND LIGHT") or speak the voice command. An instant photo emerges from the top slot and chemically develops on screen. It features an <b>invisible machine-readable watermark</b> (forensic QR glyph) encoding the 3D scene file and exact spatial coordinates. Click <b>"RECALL"</b> to instantly restore the drone to the captured coordinates, or <b>"PRINT"</b> to trigger host system printing.
+          </p>
+        </section>
+
+        <section class="help-section credits">
+          <h3>CREDITS</h3>
+          <p>
+            3D Console Model: <i>"Esper Machine V.XB71"</i> by <b>Glowbox 3D</b> (CC BY 4.0).
+            <br>Interaction design inspired by Christopher Noessel's <i>Sci-Fi Interfaces</i> critique.
+          </p>
+        </section>
+      </div>
+    </div>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>

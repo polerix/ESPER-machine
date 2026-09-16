@@ -65,11 +65,9 @@ export class CRTOverlay {
     this.width = rect.width;
     this.height = rect.height;
 
-    this.canvas.width = this.width * dpr;
-    this.canvas.height = this.height * dpr;
-    this.canvas.style.width = `${this.width}px`;
-    this.canvas.style.height = `${this.height}px`;
-    this.ctx.scale(dpr, dpr);
+    this.canvas.width = Math.max(1, Math.round(this.width * dpr));
+    this.canvas.height = Math.max(1, Math.round(this.height * dpr));
+    this.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
 
     // Minimap dimensions (180x130)
     this.minimapWidth = 180;
@@ -78,7 +76,7 @@ export class CRTOverlay {
     this.minimapCanvas.height = this.minimapHeight * dpr;
     this.minimapCanvas.style.width = `${this.minimapWidth}px`;
     this.minimapCanvas.style.height = `${this.minimapHeight}px`;
-    this.minimapCtx.scale(dpr, dpr);
+    this.minimapCtx.setTransform(dpr, 0, 0, dpr, 0, 0);
   }
 
   setTargetBox(startCell, endCell) {
@@ -98,7 +96,19 @@ export class CRTOverlay {
     if (el) el.textContent = text;
   }
 
-  update(telemetry, crimeScene) {
+  update(telemetry, crimeScene, screenBounds, viewMode) {
+    // Follow the 3D display through camera moves and viewport resizes.
+    const { left, top, width, height } = screenBounds;
+    this.container.style.left = `${left}px`;
+    this.container.style.top = `${top}px`;
+    this.container.style.width = `${width}px`;
+    this.container.style.height = `${height}px`;
+    this.container.classList.toggle('is-desk', viewMode === 'desk');
+
+    if (Math.abs(width - this.width) > 1 || Math.abs(height - this.height) > 1) {
+      this.onResize();
+    }
+
     // Update Telemetry Readout text
     const zmEl = document.getElementById('tele-zm');
     const nsEl = document.getElementById('tele-ns');
@@ -150,12 +160,14 @@ export class CRTOverlay {
     ctx.textAlign = 'left';
     ctx.textBaseline = 'top';
 
-    for (let r = 1; r <= rows; r++) {
-      for (let c = 1; c <= cols; c++) {
-        const cellNum = `${r}${String(c).padStart(2, '0')}`;
-        const x = (c - 1) * cellW + 6;
-        const y = (r - 1) * cellH + 6;
-        ctx.fillText(cellNum, x, y);
+    if (w >= 400) {
+      for (let r = 1; r <= rows; r++) {
+        for (let c = 1; c <= cols; c++) {
+          const cellNum = `${r}${String(c).padStart(2, '0')}`;
+          const x = (c - 1) * cellW + 6;
+          const y = (r - 1) * cellH + 6;
+          ctx.fillText(cellNum, x, y);
+        }
       }
     }
 

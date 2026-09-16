@@ -135,11 +135,13 @@ body {
 
 /* --- CRT Screen Overlay --- */
 .crt-overlay-container {
-  position: absolute;
-  top: 48px;
+  position: fixed;
+  top: 0;
   left: 0;
-  width: 100%;
-  height: calc(100% - 48px);
+  width: 0;
+  height: 0;
+  overflow: hidden;
+  border-radius: 12% / 16%;
   pointer-events: none;
   z-index: 5;
 }
@@ -173,27 +175,26 @@ body {
 /* CRT Telemetry Display */
 .crt-telemetry {
   position: absolute;
-  bottom: 64px;
-  left: 50%;
-  transform: translateX(-50%);
+  bottom: 8px;
+  left: 12px;
   display: flex;
-  gap: 32px;
+  gap: 14px;
   background: rgba(4, 12, 18, 0.85);
-  padding: 8px 24px;
+  padding: 4px 9px;
   border: 1px solid var(--panel-border);
   border-radius: 3px;
   box-shadow: 0 0 15px rgba(0, 240, 255, 0.25);
   font-family: var(--font-crt);
-  font-size: 26px;
-  letter-spacing: 3px;
+  font-size: 18px;
+  letter-spacing: 1px;
   color: var(--cyan-glow);
   text-shadow: 0 0 8px var(--cyan-glow);
 }
 
 .tele-item .label {
   color: rgba(0, 220, 255, 0.6);
-  font-size: 20px;
-  margin-right: 6px;
+  font-size: 15px;
+  margin-right: 3px;
 }
 
 .tele-item .val {
@@ -204,8 +205,10 @@ body {
 /* Corner Minimap */
 .crt-minimap-canvas {
   position: absolute;
-  bottom: 70px;
-  right: 28px;
+  bottom: 48px;
+  right: 10px;
+  max-width: 26%;
+  height: auto !important;
   box-shadow: 0 0 12px rgba(0, 220, 255, 0.35);
   pointer-events: none;
   border-radius: 2px;
@@ -214,7 +217,7 @@ body {
 /* Top Amber Ticker */
 .crt-top-ticker {
   position: absolute;
-  top: 8px;
+  top: 7px;
   left: 50%;
   transform: translateX(-50%);
   display: flex;
@@ -222,8 +225,11 @@ body {
   gap: 12px;
   background: rgba(14, 12, 6, 0.85);
   border: 1px solid rgba(255, 183, 0, 0.4);
-  padding: 4px 18px;
+  padding: 3px 8px;
   border-radius: 2px;
+  max-width: calc(100% - 20px);
+  white-space: nowrap;
+  overflow: hidden;
 }
 
 .ticker-amber-bar {
@@ -235,10 +241,18 @@ body {
 }
 
 .ticker-text {
-  font-size: 11px;
-  letter-spacing: 2px;
+  font-size: 10px;
+  letter-spacing: 1px;
   color: var(--amber-glow);
   text-shadow: 0 0 5px var(--amber-glow);
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.crt-overlay-container.is-desk .crt-telemetry,
+.crt-overlay-container.is-desk .crt-minimap-canvas,
+.crt-overlay-container.is-desk .crt-top-ticker {
+  display: none;
 }
 
 @keyframes flicker {
@@ -604,6 +618,17 @@ body {
   color: rgba(200, 240, 255, 0.5);
   margin-top: 4px;
   line-height: 1.2;
+}
+
+@media (max-width: 1000px) {
+  .webcam-tracker-panel {
+    left: 10px;
+    width: 160px;
+  }
+
+  .video-container {
+    height: 82px;
+  }
 }
 
 /* --- Yellow Button & Recall Dock --- */

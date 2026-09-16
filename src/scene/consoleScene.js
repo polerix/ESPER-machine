@@ -113,7 +113,7 @@ export class ConsoleScene {
   loadEsperModel() {
     const loader = new GLTFLoader();
     loader.load(
-      '/models/esper_machine_v.xb71.glb',
+      `${import.meta.env.BASE_URL}models/esper_machine_v.xb71.glb`,
       (gltf) => {
         this.esperModel = gltf.scene;
 

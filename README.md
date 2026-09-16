@@ -80,13 +80,17 @@ npm install
 ```bash
 npm run dev
 ```
-Open [http://localhost:3000](http://localhost:3000) in your browser.
+Open [http://localhost:3000/ESPER-machine/](http://localhost:3000/ESPER-machine/) in your browser.
 
 ### Production Build
 ```bash
 npm run build
 npm run preview
 ```
+
+### GitHub Pages
+
+Pushing to `main` runs the Pages workflow, which builds the Vite app and publishes `dist` at [polerix.github.io/ESPER-machine](https://polerix.github.io/ESPER-machine/).
 
 ---
 

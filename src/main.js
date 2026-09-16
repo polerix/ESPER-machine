@@ -209,7 +209,7 @@ class EsperApp {
 
     // 4. Update CRT Telemetry & HUD
     const tele = this.crimeScene.getTelemetry();
-    this.crtOverlay.update(tele, this.crimeScene);
+    this.crtOverlay.update(tele, this.crimeScene, this.consoleScene.getScreenBounds(), this.consoleScene.viewMode);
 
     // 5. Render physical workstation view
     this.consoleScene.render();

@@ -34,8 +34,8 @@ export class ConsoleScene {
         fov: 48
       },
       monitor: {
-        pos: new THREE.Vector3(-0.02, 0.88, 0.92),
-        target: new THREE.Vector3(-0.02, 0.88, 0.0),
+        pos: new THREE.Vector3(-0.055, 0.935, 1.0),
+        target: new THREE.Vector3(-0.055, 0.935, 0.40),
         fov: 34
       }
     };
@@ -144,9 +144,6 @@ export class ConsoleScene {
 
         this.scene.add(this.esperModel);
         this.modelLoaded = true;
-
-        // Re-position screen and props relative to the scaled model
-        this.adjustPropsToModel();
       },
       undefined,
       (err) => {
@@ -159,39 +156,30 @@ export class ConsoleScene {
     this.propsGroup = new THREE.Group();
 
     // 1. CRT Screen Surface (Positioned at monitor bezel)
-    // Monitor screen width ~0.42m, height ~0.32m (4:3 aspect ratio)
-    const screenGeo = new THREE.PlaneGeometry(0.42, 0.32, 16, 16);
+    // The GLB's glass is about 0.32m wide and sits near z=0.39 after scaling.
+    // Keep the live display just in front of it so the model cannot occlude it.
+    this.screenWidth = 0.32;
+    this.screenHeight = 0.25;
+    const screenGeo = new THREE.PlaneGeometry(this.screenWidth, this.screenHeight, 16, 16);
 
     // Apply subtle CRT spherical bulging
     const pos = screenGeo.attributes.position;
     for (let i = 0; i < pos.count; i++) {
       const u = pos.getX(i);
       const v = pos.getY(i);
-      const distSq = (u * u) / (0.21 * 0.21) + (v * v) / (0.16 * 0.16);
-      const bulge = Math.max(0, 1 - distSq * 0.25) * 0.015;
+      const distSq = (u * u) / (0.16 * 0.16) + (v * v) / (0.125 * 0.125);
+      const bulge = Math.max(0, 1 - distSq * 0.25) * 0.003;
       pos.setZ(i, bulge);
     }
     screenGeo.computeVertexNormals();
 
     this.screenMat = new THREE.MeshBasicMaterial({
-      map: this.crimeScene.renderTarget.texture
+      map: this.crimeScene.renderTarget.texture,
+      toneMapped: false
     });
     this.screenMesh = new THREE.Mesh(screenGeo, this.screenMat);
-    // Position on console screen bezel
-    this.screenMesh.position.set(-0.02, 0.88, 0.08);
-    this.screenMesh.rotation.x = -0.08; // subtle upward tilt
+    this.screenMesh.position.set(-0.055, 0.935, 0.40);
     this.propsGroup.add(this.screenMesh);
-
-    // Screen Bezel border frame
-    const bezelGeo = new THREE.BoxGeometry(0.45, 0.35, 0.02);
-    const bezelMat = new THREE.MeshStandardMaterial({
-      color: 0x121417,
-      roughness: 0.8
-    });
-    this.bezelMesh = new THREE.Mesh(bezelGeo, bezelMat);
-    this.bezelMesh.position.set(-0.02, 0.88, 0.07);
-    this.bezelMesh.rotation.x = -0.08;
-    this.propsGroup.add(this.bezelMesh);
 
     // 2. Analogue VU Meter (Upper Left Panel)
     const vuGroup = new THREE.Group();
@@ -298,13 +286,6 @@ export class ConsoleScene {
     this.scene.add(this.propsGroup);
   }
 
-  adjustPropsToModel() {
-    // When GLB model loads, ensure screen matches exact visual alignment
-    if (this.screenMesh) {
-      this.screenMesh.visible = true;
-    }
-  }
-
   setVuLevel(normalizedLevel) {
     // Level 0.0 to 1.0 mapped to needle angle range: -0.65 rad (-37 deg) to +0.65 rad (+37 deg)
     const minAngle = -0.65;
@@ -384,16 +365,37 @@ export class ConsoleScene {
       this.unicornDial1.rotation.y = this.crimeScene.dronePos.x * 3.0;
       this.unicornDial2.rotation.y = this.crimeScene.droneYaw * 2.0;
     }
-
-    // 5. Update CRT Screen Texture
-    if (this.screenMat) {
-      this.screenMat.map = this.crimeScene.renderTarget.texture;
-      this.screenMat.needsUpdate = true;
-    }
   }
 
   render() {
     this.renderer.render(this.scene, this.camera);
+  }
+
+  getScreenBounds() {
+    this.screenMesh.updateWorldMatrix(true, false);
+    this.camera.updateMatrixWorld();
+
+    const halfW = this.screenWidth / 2;
+    const halfH = this.screenHeight / 2;
+    const corners = [
+      [-halfW, -halfH], [-halfW, halfH],
+      [halfW, -halfH], [halfW, halfH]
+    ].map(([x, y]) => {
+      const point = new THREE.Vector3(x, y, 0)
+        .applyMatrix4(this.screenMesh.matrixWorld)
+        .project(this.camera);
+      return {
+        x: (point.x + 1) * window.innerWidth / 2,
+        y: (1 - point.y) * window.innerHeight / 2
+      };
+    });
+
+    return {
+      left: Math.min(...corners.map((p) => p.x)),
+      top: Math.min(...corners.map((p) => p.y)),
+      width: Math.max(...corners.map((p) => p.x)) - Math.min(...corners.map((p) => p.x)),
+      height: Math.max(...corners.map((p) => p.y)) - Math.min(...corners.map((p) => p.y))
+    };
   }
 
   onResize() {

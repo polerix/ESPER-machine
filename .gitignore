@@ -3,3 +3,8 @@ dist/
 .DS_Store
 *.local
 .env
+
+# Compliance hygiene
+.venv/
+venv/
+__pycache__/

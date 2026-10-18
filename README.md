@@ -115,3 +115,31 @@ Pushing to `main` runs the Pages workflow, which builds the Vite app and publish
 - **3D Console Model**: *"Esper Machine V.XB71"* by **[Glowbox 3D](https://sketchfab.com/ra3id)**, licensed under [CC BY 4.0](http://creativecommons.org/licenses/by/4.0/).
 - **Interaction Design**: Inspired by Christopher Noessel's analysis on [*Sci-Fi Interfaces*](https://scifiinterfaces.com/2020/04/29/deckards-photo-inspector/).
 - *Blade Runner* is copyright © Warner Bros. & The Blade Runner Partnership. This is a non-commercial educational emulation and speculative interface project.
+
+## Deployment & Repository Status
+
+- **Standardized Name**: `ESPER-machine`
+- **Remote Origin**: `https://github.com/polerix/ESPER-machine.git`
+- **License Level**: `MIT` ([`LICENSE`](LICENSE))
+- **Security Policy**: [`SECURITY.md`](SECURITY.md)
+- **GitHub Actions**: ✅ Active
+- **Last Compliance Audit**: `2026-10-18`
+
+### GitHub CleanUp Log
+- **Unused / Archive / Cache Items Moved to `/Volumes/Clay/GitHubCleanUp/ESPER-machine/`**: 16 item(s) (1647 files, 122.35 MB)
+  - `esper-machine-vxb71.zip` — Unused zip archive (1 file(s), 11.47 MB)
+  - `esper_machine_v.xb71.zip` — Unused zip archive (1 file(s), 10.90 MB)
+  - `esper_machine_v.xb71.glTF` — Unused glTF duplicate model (1 file(s), 6.18 MB)
+  - `esper_machine_v.xb71.glb` — Root duplicate of public/models/esper_machine_v.xb71.glb (1 file(s), 13.13 MB)
+  - `Esper_Machine_V.usdz` — Unreferenced USDZ model (1 file(s), 4.75 MB)
+  - `Glowbox 3D.txt` — Unreferenced scratch text file (1 file(s), 0.2 KB)
+  - `1157415_spotlight_106923_Wunn2V0y9.png` — Root duplicate of public/assets/1157415_spotlight_106923_Wunn2V0y9.png (1 file(s), 45.8 KB)
+  - `blade-runner-esper-photo.jpg` — Root duplicate of public/assets/blade-runner-esper-photo.jpg (1 file(s), 21.8 KB)
+  - `blade-runner.jpg` — Root duplicate of public/assets/blade-runner.jpg (1 file(s), 12.5 KB)
+  - `bladeRunnerStill.width-1160.jpg` — Root duplicate of public/assets/bladeRunnerStill.width-1160.jpg (1 file(s), 25.1 KB)
+  - `fixing-1982-2.webp` — Root duplicate of public/assets/fixing-1982-2.webp (1 file(s), 185.3 KB)
+  - `20 Esper Machine Noises.mp3` — Untracked unreferenced audio file (1 file(s), 1.32 MB)
+  - `fiche128.py` — Untracked unreferenced scratch script (1 file(s), 5.6 KB)
+  - `vk128.py` — Untracked unreferenced scratch script (1 file(s), 5.5 KB)
+  - `dist` — Local Vite build output directory (9 file(s), 14.05 MB)
+  - `node_modules` — Local dependency/build cache (node_modules) (1624 file(s), 60.25 MB)

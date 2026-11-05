@@ -8,3 +8,6 @@ dist/
 .venv/
 venv/
 __pycache__/
+
+# Frames grabbed from the film for private reference only - not redistributed
+reference_frames/
